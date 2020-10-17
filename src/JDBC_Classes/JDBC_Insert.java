@@ -14,10 +14,12 @@ import java.util.Scanner;
  * @author Arun Sri Krishna
  */
 
-static int r_count = 1;
 public class JDBC_Insert 
 {
-
+    static int r_count;
+    static int c_count;
+    
+    static int emp_id = 0;
     
     //function to create Table
     public static void Table_Insert(String[] col_values, String[] col_datatype) throws SQLException, Exception
@@ -25,55 +27,65 @@ public class JDBC_Insert
         Connection conn = JDBC_getconnection();
         Statement stmt = conn.createStatement();
         
+        emp_id = r_count;
+        String SQL_Statement = "insert into emp values("+ emp_id + " ";
         
-        
-        String SQL_Statement = "insert into emp values("+ r_count + " ";
-        r_count++;
-        while(col_values[r_count] != "")
+        int index = 2;
+        while(index <= c_count)
         {
-            if(col_datatype[r_count].equals("VARCHAR"))
+            if(col_datatype[index].equals("VARCHAR"))
             {
-                SQL_Statement += ",'" + col_values[r_count] + "' ";
+                SQL_Statement += ",'" + col_values[index] + "' ";
             }
-            else if (col_datatype[r_count].equals("INTEGER"))
+            else if (col_datatype[index].equals("INTEGER"))
             {
-                SQL_Statement += ", " + Integer.parseInt(col_values[r_count]) + " ";
+                SQL_Statement += ", " + Integer.parseInt(col_values[index]) + " ";
             }
-            else if (col_datatype[r_count].equals("FLOAT"))
+            else if (col_datatype[index].equals("FLOAT"))
             {
-                SQL_Statement += ", " + Float.parseFloat(col_values[r_count]) + " ";                
+                SQL_Statement += ", " + Float.parseFloat(col_values[index]) + " ";                
             }
             else
             {
-                SQL_Statement += ", " + col_values[i] + " ";                 
+                SQL_Statement += ", " + col_values[index] + " ";                 
             }
-            i++;
+            index++;
         }
         
         SQL_Statement += ");";        
         stmt.executeUpdate(SQL_Statement);
     }
     
+
     public static void main(String args[]) throws Exception
     {
         Connection conn = JDBC_getconnection();
         Statement stmt = conn.createStatement();
-        
+
         ResultSet rs = stmt.executeQuery("select * from emp");
         ResultSetMetaData rsm = rs.getMetaData();
+
+        rs.last();
+        r_count = rs.getRow() + 1;
+        c_count = rsm.getColumnCount();
         
         //Fetch Column_Names using ResultSetMetaData
         String col_name[][] = new String[10][10];
         String col_datatype[][] = new String[10][10];
         String col_values[] = new String[10];
-        
         String col_values_multiple[][] = new String[10][10];
-        int count = 1;
-        while(count <= 5)
+        
+        
+        int index = 1;
+
+        while(index <= c_count)
         {
-            col_name[1][count] = rsm.getColumnName(count);
-            col_datatype[1][count] = rsm.getColumnTypeName(count);
+            col_name[1][index] = rsm.getColumnName(index);
+            col_datatype[1][index] = rsm.getColumnTypeName(index);     
+            index++;
         }
+  
+        
         
         System.out.println("Enter your Choice\n=========================\n 1 = Insert a Single Record\n 2 = Insert Multiple Records\n 3 = Exit");
         Scanner sc = new Scanner(System.in);
@@ -84,9 +96,9 @@ public class JDBC_Insert
         {
             case 1: 
             {
-                System.out.println("Inserting Single Record");
+                System.out.println("Inserting Single Record for emp_id:" + r_count );
                 i++;
-                while(col_name[1][i] != "")
+                while(i <= c_count)
                 {
                     System.out.print("Enter the value for "+ col_name[1][i] +" datatype: "+ col_datatype[1][i] +": \n");
                     col_values[i] = sc.next(); 
