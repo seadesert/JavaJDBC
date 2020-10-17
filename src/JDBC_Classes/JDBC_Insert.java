@@ -13,6 +13,8 @@ import java.util.Scanner;
  *
  * @author Arun Sri Krishna
  */
+
+static int r_count = 1;
 public class JDBC_Insert 
 {
 
@@ -23,22 +25,23 @@ public class JDBC_Insert
         Connection conn = JDBC_getconnection();
         Statement stmt = conn.createStatement();
         
-        int i =1;
         
-        String SQL_Statement = "insert into emp values(";
-        while(col_values[1] != "")
+        
+        String SQL_Statement = "insert into emp values("+ r_count + " ";
+        r_count++;
+        while(col_values[r_count] != "")
         {
-            if(col_datatype[i].equals("VARCHAR"))
+            if(col_datatype[r_count].equals("VARCHAR"))
             {
-                SQL_Statement += ",'" + col_values[i] + "' ";
+                SQL_Statement += ",'" + col_values[r_count] + "' ";
             }
-            else if (col_datatype[i].equals("INTEGER"))
+            else if (col_datatype[r_count].equals("INTEGER"))
             {
-                SQL_Statement += ", " + Integer.parseInt(col_values[i]) + " ";
+                SQL_Statement += ", " + Integer.parseInt(col_values[r_count]) + " ";
             }
-            else if (col_datatype[i].equals("FLOAT"))
+            else if (col_datatype[r_count].equals("FLOAT"))
             {
-                SQL_Statement += ", " + Float.parseFloat(col_values[i]) + " ";                
+                SQL_Statement += ", " + Float.parseFloat(col_values[r_count]) + " ";                
             }
             else
             {
@@ -82,7 +85,7 @@ public class JDBC_Insert
             case 1: 
             {
                 System.out.println("Inserting Single Record");
-                             
+                i++;
                 while(col_name[1][i] != "")
                 {
                     System.out.print("Enter the value for "+ col_name[1][i] +" datatype: "+ col_datatype[1][i] +": \n");
