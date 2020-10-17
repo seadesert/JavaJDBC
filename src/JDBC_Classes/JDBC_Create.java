@@ -11,9 +11,9 @@ import java.sql.Statement;
  */
 public class JDBC_Create 
 {
-     private static final String EMPLOYEE_TABLE = "create table rmp( "
-      + " Emp_ID INT PRIMARY KEY, Emp_Name VARCHAR(20), Emp_Address VARCHAR(20), "
-      + "   Emp_Branch VARCHAR(20), Emp_Salary FLOAT )"; 
+     private static final String EMPLOYEE_TABLE = "create table emp( "
+      + " emp_ID INT PRIMARY KEY, emp_Name VARCHAR(20), emp_Address VARCHAR(20), "
+      + "   emp_Branch VARCHAR(20), emp_Salary FLOAT )"; 
     
     //function to create Table
     public static void Table_Create() throws SQLException, Exception
@@ -22,7 +22,7 @@ public class JDBC_Create
       Connection conn = JDBC_getconnection();
       Statement stmt = conn.createStatement();
       stmt.executeUpdate(EMPLOYEE_TABLE);
-      System.out.println("CreateEmployeeTable: main(): table created.");
+      System.out.println("CreateEmployeeTable: Table created.");
     }     
         public static void main(String args[]) throws Exception
     {
