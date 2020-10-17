@@ -54,7 +54,7 @@ public class JDBC_Insert
         
         SQL_Statement += ");";        
         stmt.executeUpdate(SQL_Statement);
-        System.out.println("\n1 Record(s) added sucessfully!\n");
+        System.out.print("\n* 1 Record(s) added sucessfully! *\n");
         conn.close();
     }
     
@@ -97,7 +97,7 @@ public class JDBC_Insert
   
         
         
-        System.out.println("Enter your Choice\n=========================\n 1 = Insert a Single Record\n 2 = Insert Multiple Records\n 3 = Exit\n\n> ");
+        System.out.print("Enter your Choice\n=========================\n 1 = Insert a Single Record\n 2 = Insert Multiple Records\n 3 = Exit\n\n> ");
         Scanner sc = new Scanner(System.in);
         
         int i;
@@ -106,7 +106,7 @@ public class JDBC_Insert
         {
             case 1: 
             {
-                System.out.println("Inserting Single Record for emp_id:" + r_count + "\n");
+                System.out.print("Inserting Single Record for emp_id:" + r_count + "\n\n1");
                 i = 2;
                 while(i <= c_count)
                 {
@@ -125,9 +125,9 @@ public class JDBC_Insert
                 int count;
                 int row_index = 1;
                 
-                System.out.println("Enter number of Records to insert:");
+                System.out.print("Enter number of Records to insert:\n");
                 count = sc.nextInt();
-                System.out.println("Inserting Multiple Records from emp_id:" + r_count + "\n");
+                System.out.print("Inserting Multiple Records from emp_id:" + r_count + "\n");
                 
                 while(row_index <= count)
                 {
