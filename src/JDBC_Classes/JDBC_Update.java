@@ -1,5 +1,6 @@
 package JDBC_Classes;
 
+import static JDBC_Classes.JDBC_Connection.JDBC_getconnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,18 +19,18 @@ public class JDBC_Update
     Statement stmt; 
     
     //function to update record for selected row
-    public static void Table_Update(int emp_id) throws SQLException, ClassNotFoundException
+    public static void Table_Update(int emp_id) throws SQLException, ClassNotFoundException, Exception
     {
-      int User_Ch;
-      float UP_valf;
-      String Col_name;
-      String UP_val;
-      String sta;
+            int User_Ch;
+            float UP_valf;
+            String Col_name;
+            String UP_val;
+            String sta;
+            
+            
             Scanner s = new Scanner(System.in);
-            String myDriver = "com.mysql.jdbc.Driver";
-            String myUrl = "jdbc:mysql://localhost:3306/emp";
-            Class.forName(myDriver);
-            Connection conn = DriverManager.getConnection(myUrl, "root", "");
+
+            Connection conn = JDBC_getconnection();
             Statement st=conn.createStatement();
             ResultSet rs=st.executeQuery("Select * from Emp");
             ResultSetMetaData rsm=rs.getMetaData();
