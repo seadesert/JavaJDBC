@@ -20,44 +20,8 @@ public class JDBC_Insert
     static int r_count;
     static int c_count;
     static int record_count;
-    
-    //function to insert single record to Table
-    public static void Table_Insert(String[] col_values, String[] col_datatype) throws SQLException, Exception
-    {
-        Connection conn = JDBC_getconnection();
-        Statement stmt = conn.createStatement();
-        
-        get_empid();
-        String SQL_Statement = "insert into emp values("+ r_count + " ";
-        
-        int index = 2;
-        while(index <= c_count)
-        {
-            if(col_datatype[index].equals("VARCHAR"))
-            {
-                SQL_Statement += ",'" + col_values[index] + "' ";
-            }
-            else if (col_datatype[index].equals("INTEGER"))
-            {
-                SQL_Statement += ", " + Integer.parseInt(col_values[index]) + " ";
-            }
-            else if (col_datatype[index].equals("FLOAT"))
-            {
-                SQL_Statement += ", " + Float.parseFloat(col_values[index]) + " ";                
-            }
-            else
-            {
-                SQL_Statement += ", " + col_values[index] + " ";                 
-            }
-            index++;
-        }
-        
-        SQL_Statement += ");";        
-        stmt.executeUpdate(SQL_Statement);
-        System.out.print("\n* 1 Record(s) added sucessfully! *\n");
-        conn.close();
-    }
-    //function to insert multiple records to Table
+
+    //function to insert multiple records to Table using PreparedStatement
     public static void Table_Insert(String[][] col_values, String[] col_datatype) throws SQLException, Exception
     {
         Connection conn = JDBC_getconnection();
@@ -90,6 +54,12 @@ public class JDBC_Insert
                 {
                     preparedStmt.setFloat  (k, Float.parseFloat(col_values[i][k]));
                 }
+                else if(col_datatype[k].equals("BOOLEAN"))
+                {
+                    preparedStmt.setBoolean  (k, Boolean.parseBoolean(col_values[i][k]));
+                }
+                
+                
             }
             preparedStmt.execute();
         }
@@ -127,8 +97,7 @@ public class JDBC_Insert
 
         String col_name[] = new String[10];
         String col_datatype[] = new String[10];
-        String col_values[] = new String[10];
-        String col_values_multiple[][] = new String[10][10];
+        String col_values[][] = new String[10][10];
         
         
         int index = 1;
@@ -156,10 +125,10 @@ public class JDBC_Insert
                 while(i <= c_count)
                 {
                     System.out.print("Enter the value for "+ col_name[i] +" datatype: "+ col_datatype[i] +": \n");
-                    col_values[i] = sc.next(); 
+                    col_values[1][i] = sc.next(); 
                     i++;
                 }
-                
+                record_count = 1;
                 Table_Insert(col_values, col_datatype);
             }
             break;
@@ -181,13 +150,13 @@ public class JDBC_Insert
                     while(i <= c_count)
                     {
                         System.out.print("Enter the value for "+ col_name[i] +" datatype: "+ col_datatype[i] +": \n");
-                        col_values_multiple[row_index][i] = sc.next(); 
+                        col_values[row_index][i] = sc.next(); 
                         i++;
                     }
                     
                    row_index++;
                 }
-                Table_Insert(col_values_multiple, col_datatype);
+                Table_Insert(col_values, col_datatype);
             }
             break;
             
@@ -203,3 +172,43 @@ public class JDBC_Insert
     }
 
 }
+    /*
+    
+    //function to insert single record to Table without using prepared statment
+    public static void Table_Insert(String[] col_values, String[] col_datatype) throws SQLException, Exception
+    {
+        Connection conn = JDBC_getconnection();
+        Statement stmt = conn.createStatement();
+        
+        get_empid();
+        String SQL_Statement = "insert into emp values("+ r_count + " ";
+        
+        int index = 2;
+        while(index <= c_count)
+        {
+            if(col_datatype[index].equals("VARCHAR"))
+            {
+                SQL_Statement += ",'" + col_values[index] + "' ";
+            }
+            else if (col_datatype[index].equals("INTEGER"))
+            {
+                SQL_Statement += ", " + Integer.parseInt(col_values[index]) + " ";
+            }
+            else if (col_datatype[index].equals("FLOAT"))
+            {
+                SQL_Statement += ", " + Float.parseFloat(col_values[index]) + " ";                
+            }
+            else
+            {
+                SQL_Statement += ", " + col_values[index] + " ";                 
+            }
+            index++;
+        }
+        
+        SQL_Statement += ");";        
+        stmt.executeUpdate(SQL_Statement);
+        System.out.print("\n* 1 Record(s) added sucessfully! *\n");
+        conn.close();
+    }
+
+    */
