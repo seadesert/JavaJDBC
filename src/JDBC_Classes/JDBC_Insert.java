@@ -3,6 +3,7 @@ package JDBC_Classes;
 
 import static JDBC_Classes.JDBC_Connection.JDBC_getconnection;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -18,17 +19,16 @@ public class JDBC_Insert
 {
     static int r_count;
     static int c_count;
+    static int record_count;
     
-    static int emp_id = 0;
-    
-    //function to create Table
+    //function to insert single record to Table
     public static void Table_Insert(String[] col_values, String[] col_datatype) throws SQLException, Exception
     {
         Connection conn = JDBC_getconnection();
         Statement stmt = conn.createStatement();
         
-        emp_id = r_count;
-        String SQL_Statement = "insert into emp values("+ emp_id + " ";
+        get_empid();
+        String SQL_Statement = "insert into emp values("+ r_count + " ";
         
         int index = 2;
         while(index <= c_count)
@@ -57,17 +57,49 @@ public class JDBC_Insert
         System.out.print("\n* 1 Record(s) added sucessfully! *\n");
         conn.close();
     }
-    
+    //function to insert multiple records to Table
     public static void Table_Insert(String[][] col_values, String[] col_datatype) throws SQLException, Exception
     {
         Connection conn = JDBC_getconnection();
         Statement stmt = conn.createStatement();
+
+        String SQL_Statement = "insert into emp values(?, ?, ?, ?, ?);";
+        PreparedStatement preparedStmt = conn.prepareStatement(SQL_Statement);
+
         
-        emp_id = r_count;
+        for(int i =1; i<=record_count; i++)
+        {
+            for(int k =1; k<=c_count; k++)
+            {
+                //primary key
+                if(k == 1)
+                {
+                    get_empid();
+                    preparedStmt.setInt(k, r_count);
+                }
+                
+                else if(col_datatype[k].equals("VARCHAR"))
+                {
+                    preparedStmt.setString (k, col_values[i][k]);
+                }
+                else if(col_datatype[k].equals("FLOAT"))
+                {
+                    preparedStmt.setFloat  (k, Float.parseFloat(col_values[i][k]));                  
+                }
+                else if(col_datatype[k].equals("INTEGER"))
+                {
+                    preparedStmt.setFloat  (k, Float.parseFloat(col_values[i][k]));
+                }
+            }
+            preparedStmt.execute();
+        }
+        
+        System.out.print("\n* "+ record_count +" Record(s) added sucessfully! *\n");
+        conn.close();
     }
     
 
-    public static void main(String args[]) throws Exception
+    public static void get_empid() throws Exception
     {
         Connection conn = JDBC_getconnection();
         Statement stmt = conn.createStatement();
@@ -77,9 +109,22 @@ public class JDBC_Insert
 
         rs.last();
         r_count = rs.getRow() + 1;
+        conn.close();
+    }
+    
+    
+    public static void main(String args[]) throws Exception
+    {
+        Connection conn = JDBC_getconnection();
+        Statement stmt = conn.createStatement();
+
+        ResultSet rs = stmt.executeQuery("select * from emp");
+        ResultSetMetaData rsm = rs.getMetaData();
+
+        get_empid();
         c_count = rsm.getColumnCount();
         
-        //Fetch Column_Names using ResultSetMetaData
+
         String col_name[] = new String[10];
         String col_datatype[] = new String[10];
         String col_values[] = new String[10];
@@ -87,7 +132,7 @@ public class JDBC_Insert
         
         
         int index = 1;
-
+        //Fetch Column_Names using ResultSetMetaData
         while(index <= c_count)
         {
             col_name[index] = rsm.getColumnName(index);
@@ -106,7 +151,7 @@ public class JDBC_Insert
         {
             case 1: 
             {
-                System.out.print("Inserting Single Record for emp_id:" + r_count + "\n\n1");
+                System.out.print("Inserting Single Record for emp_id:" + r_count + "\n\n");
                 i = 2;
                 while(i <= c_count)
                 {
@@ -122,14 +167,14 @@ public class JDBC_Insert
             case 2:
             {
 
-                int count;
                 int row_index = 1;
                 
                 System.out.print("Enter number of Records to insert:\n");
-                count = sc.nextInt();
+                record_count = sc.nextInt();
+                
                 System.out.print("Inserting Multiple Records from emp_id:" + r_count + "\n");
                 
-                while(row_index <= count)
+                while(row_index <= record_count)
                 {
                     System.out.println("\nCurrent Record - emp_id:" + (r_count + row_index-1) );
                     i = 2;
