@@ -24,11 +24,12 @@ public class JDBC_Display
     {
         Load_ResultSet();
 
-
+//change
+int a = 10;
     }
     
      //function to display selected row of table 
-    public static void Table_Display(int emd_id) throws SQLException
+    public static void Table_Display(int emp_id) throws SQLException
     {
         Load_ResultSet();
                 
@@ -36,7 +37,7 @@ public class JDBC_Display
     
     //function to display selected row(s) of table
     //accpets array as a parameter
-    public static void Table_Display(int[] emd_id) throws SQLException
+    public static void Table_Display(int[] emp_id) throws SQLException
     {
         Load_ResultSet();
         
