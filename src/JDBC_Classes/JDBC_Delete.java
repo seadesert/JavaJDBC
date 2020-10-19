@@ -1,6 +1,7 @@
 package JDBC_Classes;
 
 import static JDBC_Classes.JDBC_Connection.JDBC_getconnection;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -14,22 +15,20 @@ public class JDBC_Delete
     Statement stmt; 
     
     //function to Delete a selected record
-    public static void Table_Delete(int emp_id) throws SQLException
+    public static void Table_Delete(int emp_id) throws SQLException, Exception
     {
              String sql = "delete from employee where emp_id =" + emp_id;
-
-        try (Connection conn = JDBC_getconnection()); 
-            Statement stmt = conn.createStatement();) {
+            
+            Connection conn = JDBC_getconnection(); 
+            Statement stmt = conn.createStatement(); 
 
           stmt.executeUpdate(sql);
           System.out.println("Record deleted successfully");
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
+
     }
 
 
-    }
+    
     
     //function to delete multiple records
     public static void Table_Delete(int[] emp_id) throws SQLException
@@ -40,18 +39,14 @@ public class JDBC_Delete
     }
     
     //function to delete all records
-    public static void Table_Delete() throws SQLException
+    public static void Table_Delete() throws SQLException, Exception
     {
         String sql = "delete from employee";
+            
+            Connection conn = JDBC_getconnection(); 
+            Statement stmt = conn.createStatement(); 
+            stmt.executeUpdate(sql);
 
-                try (Connection conn = JDBC_getconnection()); 
-                    Statement stmt = conn.createStatement();) {
-
-                  stmt.executeUpdate(sql);
-                  System.out.println("Record deleted successfully");
-                } catch (SQLException e) {
-                  e.printStackTrace();
-                }
 
     }
         public static void main(String args[]) throws Exception
