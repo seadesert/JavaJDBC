@@ -35,7 +35,7 @@ public class JDBC_Display
           String name = rs.getString("name");
                     String address = rs.getString("address");
         String branch = rs.getString("branch");
-        Float salary = rs.getFloat ("salay");
+        Float salary = rs.getFloat ("salary");
                     System.out.println(id+"   "+name+"    "+address+"   "+branch+"    "+salary);
                  }
 
