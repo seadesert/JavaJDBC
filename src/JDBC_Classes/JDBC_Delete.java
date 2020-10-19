@@ -16,7 +16,17 @@ public class JDBC_Delete
     //function to Delete a selected record
     public static void Table_Delete(int emp_id) throws SQLException
     {
+         String sql = "delete from employee where emp_id =" + emp_id;
 
+    try (Connection conn = DriverManager.getConnection(jdbcUrl, username, password); 
+        Statement stmt = conn.createStatement();) {
+      
+      stmt.executeUpdate(sql);
+      System.out.println("Record deleted successfully");
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    }
 
 
     }
