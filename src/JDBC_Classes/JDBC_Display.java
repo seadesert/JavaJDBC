@@ -44,7 +44,7 @@ public class JDBC_Display
      //function to display selected row of table 
     public static void Table_Display(int emp_id) throws SQLException, Exception
     {
-       ResultSet rs =  Load_ResultSet();
+       ResultSet rs =  Load_ResultSet();int a=5;
                 
     }
     
