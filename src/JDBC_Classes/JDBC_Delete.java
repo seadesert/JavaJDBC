@@ -18,7 +18,7 @@ public class JDBC_Delete
     {
          String sql = "delete from employee where emp_id =" + emp_id;
 
-    try (Connection conn = DriverManager.getConnection(jdbcUrl, username, password); 
+    try (Connection conn = JDBC_getconnection()); 
         Statement stmt = conn.createStatement();) {
       
       stmt.executeUpdate(sql);
