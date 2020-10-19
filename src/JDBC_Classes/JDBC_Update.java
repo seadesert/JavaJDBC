@@ -57,7 +57,7 @@ public class JDBC_Update
                 st.executeUpdate(sta);
                 System.out.println("Employee Information Updated");
             }
-            s.close();
+            conn.close();
     }
 
 }

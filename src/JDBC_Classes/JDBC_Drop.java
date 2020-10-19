@@ -21,9 +21,9 @@ public class JDBC_Drop {
       System.out.println("Deleting database...");
       Statement stmt = conn.createStatement();
       
-      String sql = "DROP DATABASE emp";
+      String sql = "DROP TABLE emp";
       stmt.executeUpdate(sql);
-      System.out.println("Database deleted successfully...");
+      System.out.println("Table dropped successfully...");
 
     }
 }

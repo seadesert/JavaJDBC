@@ -111,7 +111,7 @@ public class JDBC_Insert
   
         
         
-        System.out.print("Enter your Choice\n=========================\n 1 = Insert a Single Record\n 2 = Insert Multiple Records\n 3 = Exit\n\n> ");
+        System.out.print("Enter your Choice\n=============================\n 1 = Insert a Single Record\n 2 = Insert Multiple Records\n 3 = Exit\n\n> ");
         Scanner sc = new Scanner(System.in);
         
         int i;

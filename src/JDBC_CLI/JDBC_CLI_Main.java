@@ -6,6 +6,7 @@ import static JDBC_Classes.JDBC_Connection.JDBC_getconnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 /**
  *
@@ -19,7 +20,7 @@ public class JDBC_CLI_Main {
     
     static int max_emp_id = 0;
     
-    public static void get_empid() throws Exception
+    public static void get_maxempid() throws Exception
     {
         Connection conn = JDBC_getconnection();
         Statement stmt = conn.createStatement();
@@ -34,20 +35,18 @@ public class JDBC_CLI_Main {
     
     
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception, SQLException{
        
         int ch = -1;
         
         while(ch != 7)
         {
-        System.out.print("Enter your Choice\n===============================\n 1 = Create Table for employees\n 2 = Insert Records to table\n 3 = Display Table\n 4 = Update Records in table\n 5 = Delete Records from table\n 6 = Drop table\n 7 = Exit Application\n\n> ");
+        System.out.print("Enter your Choice\n================================\n 1 = Create Table for employees\n 2 = Insert Records to table\n 3 = Display Table\n 4 = Update Records in table\n 5 = Delete Records from table\n 6 = Drop table\n 7 = Exit Application\n\n> ");
         Scanner sc = new Scanner(System.in);
 
          
          ch = sc.nextInt();
-         
-         try
-         {
+
             switch(ch)
             {
                 case 1: JDBC_Create.Table_Create();
@@ -61,9 +60,9 @@ public class JDBC_CLI_Main {
                 
                 case 4: 
                 {    
-                    System.out.println("\nEnter the emp_id of the Record to be UPDATED:\n > ");
+                    System.out.print("\nEnter the emp_id of the Record to be UPDATED:\n > ");
                     int emp_id = sc.nextInt();
-     
+                    get_maxempid();
                     if(emp_id < max_emp_id)
                     {
                         JDBC_Update.Table_Update(emp_id);
@@ -77,12 +76,26 @@ public class JDBC_CLI_Main {
                 
                 case 5: 
                 {
-                    System.out.println("\nEnter the emp_id(s) of the Record to be DELETED: (-1 to STOP)\n > ");
+                    System.out.print("\nEnter the emp_id(s) of the Record to be DELETED: (0 to DELETE ALL RECORDS AND ENTER -1 to STOP)\n");
                     int emp_id[] = new int[10];
                     int i=0;
-                    boolean multiple = false;
-                    while((emp_id[i] = sc.nextInt()) != -1)
+                    Boolean multiple = null;
+                    get_maxempid();
+                    emp_id[i] = sc.nextInt();
+                    i++;
+
+                    
+                    while(emp_id[i] != -1)
                     {
+                        emp_id[i] = sc.nextInt();
+                        
+                        //delete all records
+                        if(emp_id[0] == 0)
+                        {
+                            JDBC_Delete.Table_Delete();
+                            break;
+                        }
+                            
                         //delete single record
                         if(emp_id[1] < max_emp_id && emp_id[1] == -1)
                         {
@@ -103,22 +116,28 @@ public class JDBC_CLI_Main {
                                 break;
                             }
                         }
+                        
+                        i++;
+                    }
+                    if(multiple != null)
+                    {
                         if(multiple == true)
                         {
                             JDBC_Delete.Table_Delete(emp_id);
                         }
-                        else
+                        else if(multiple == false)
                         {
-                            System.out.println("\nError: Invalid emp_id ");
+                            System.out.println("\nError: Invalid emp_id \n");
+                            break;
                         }
-                        i++;
+                        
                     }
                 }
                 break;
                 
                 case 6: 
                 {
-                    System.out.println("\n* Are you sure you want to Drop the table? *\n 1 = Confirm\n 2 = Cancel\n > ");
+                    System.out.print("\n* Are you sure you want to Drop the table? *\n 1 = Confirm\n 2 = Cancel\n > ");
                     int confirm = sc.nextInt();
                     
                     if(confirm == 1)
@@ -135,11 +154,6 @@ public class JDBC_CLI_Main {
 
             }
         
-         }
-         catch(Exception e)
-         {
-             e.printStackTrace();
-         }
         }    
     }
     
