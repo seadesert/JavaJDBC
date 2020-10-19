@@ -25,7 +25,7 @@ public class JDBC_Display
         Load_ResultSet();
 
 //change
-int a = 10;
+int a = 20;
     }
     
      //function to display selected row of table 
