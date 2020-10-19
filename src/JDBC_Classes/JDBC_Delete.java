@@ -31,9 +31,20 @@ public class JDBC_Delete
     
     
     //function to delete multiple records
-    public static void Table_Delete(int[] emp_id) throws SQLException
+    public static void Table_Delete(int[] emp_id) throws SQLException, Exception
     {
 
+            
+            Connection conn = JDBC_getconnection(); 
+            Statement stmt = conn.createStatement(); 
+
+          int i = 0;
+          while(emp_id[i] != -1)
+          {
+            String sql = "delete from emp where emp_ID =" + emp_id[i];
+            stmt.executeUpdate(sql);
+            i++;
+          }
 
           System.out.println("Record(s) deleted successfully");
     }
@@ -49,10 +60,7 @@ public class JDBC_Delete
           System.out.println("All Record(s) deleted successfully");
 
     }
-        public static void main(String args[]) throws Exception
-    {
-        //CLI_Interface here
-    }
+
 
 
 }
