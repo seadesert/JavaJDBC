@@ -24,9 +24,6 @@ public class JDBC_Create
       stmt.executeUpdate(EMPLOYEE_TABLE);
       System.out.println("CreateEmployeeTable: Table created.");
     }     
-        public static void main(String args[]) throws Exception
-    {
-        Table_Create();
-    }
+
 }
 

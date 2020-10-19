@@ -59,9 +59,5 @@ public class JDBC_Update
             }
             s.close();
     }
-    public static void main(String args[]) throws Exception
-    {
-        Table_Update(18021);
-    }
 
 }

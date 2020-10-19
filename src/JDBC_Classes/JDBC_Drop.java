@@ -12,7 +12,7 @@ import java.sql.Statement;
 public class JDBC_Drop {
 
     
-    public static void main(String[] args) throws SQLException, Exception {
+    public static void Table_Drop() throws SQLException, Exception {
 
 
 
@@ -25,7 +25,5 @@ public class JDBC_Drop {
       stmt.executeUpdate(sql);
       System.out.println("Database deleted successfully...");
 
-
-    
     }
 }

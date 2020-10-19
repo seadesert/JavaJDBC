@@ -83,7 +83,7 @@ public class JDBC_Insert
     }
     
     
-    public static void main(String args[]) throws Exception
+    public static void CLI_Insert() throws Exception
     {
         Connection conn = JDBC_getconnection();
         Statement stmt = conn.createStatement();
