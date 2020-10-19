@@ -48,7 +48,7 @@ public class JDBC_Delete
     }
         public static void main(String args[]) throws Exception
     {
-        JDBC_getconnection();
+        //CLI_Interface here
     }
 
 
