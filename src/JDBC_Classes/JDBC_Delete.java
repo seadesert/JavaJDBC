@@ -42,8 +42,16 @@ public class JDBC_Delete
     //function to delete all records
     public static void Table_Delete() throws SQLException
     {
+        String sql = "delete from employee";
 
+                try (Connection conn = JDBC_getconnection()); 
+                    Statement stmt = conn.createStatement();) {
 
+                  stmt.executeUpdate(sql);
+                  System.out.println("Record deleted successfully");
+                } catch (SQLException e) {
+                  e.printStackTrace();
+                }
 
     }
         public static void main(String args[]) throws Exception
