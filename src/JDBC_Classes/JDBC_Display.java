@@ -44,7 +44,9 @@ public class JDBC_Display
      //function to display selected row of table 
     public static void Table_Display(int emp_id) throws SQLException, Exception
     {
-       ResultSet rs =  Load_ResultSet();int a=5;
+       ResultSet rs =  Load_ResultSet();
+       String sqlSelectQuery =
+                           "SELECT * FROM emp WHERE id = ?";
                 
     }
     
@@ -53,6 +55,12 @@ public class JDBC_Display
     public static void Table_Display(int[] emp_id) throws SQLException, Exception
     {
        ResultSet rs = Load_ResultSet();
+       ArrayList<Integer> resultList = new ArrayList<Integer>();
+while (rs.next()) {
+        result = rs.getInt(1); 
+        resultList.add(result);
+    }
+return resultList;
         
     }
 }
