@@ -99,7 +99,7 @@ public class JDBC_CLI_Main {
                         //delete single record
                         if(emp_id[1] < max_emp_id && emp_id[1] == -1)
                         {
-                            JDBC_Delete.Table_Delete(emp_id[1]);
+                            JDBC_Delete.Table_Delete(emp_id[0]);
                             break;
                         }
                         

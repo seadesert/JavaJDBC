@@ -17,18 +17,16 @@ public class JDBC_Delete
     //function to Delete a selected record
     public static void Table_Delete(int emp_id) throws SQLException, Exception
     {
-             String sql = "delete from emp where emp_ID =" + emp_id;
+             String sql = "delete from emp where emp_ID =" + emp_id + ";";
             
             Connection conn = JDBC_getconnection(); 
             Statement stmt = conn.createStatement(); 
-
           stmt.executeUpdate(sql);
           System.out.println("Record deleted successfully");
+          conn.close();
 
     }
 
-
-    
     
     //function to delete multiple records
     public static void Table_Delete(int[] emp_id) throws SQLException, Exception
@@ -47,6 +45,7 @@ public class JDBC_Delete
           }
 
           System.out.println("Record(s) deleted successfully");
+          conn.close();
     }
     
     //function to delete all records
@@ -58,7 +57,7 @@ public class JDBC_Delete
             Statement stmt = conn.createStatement(); 
             stmt.executeUpdate(sql);
           System.out.println("All Record(s) deleted successfully");
-
+        conn.close();
     }
 
 
