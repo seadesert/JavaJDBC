@@ -29,13 +29,13 @@ public class JDBC_Display
     public static void Table_Display() throws SQLException, Exception
     {
         ResultSet rs = Load_ResultSet();
-        
+        System.out.print("\nEmployee Table\n==========================================================");
         while (rs.next()) {
           int id = rs.getInt("emp_ID");
           String name = rs.getString("emp_Name");
                     String address = rs.getString("emp_Address");
         String branch = rs.getString("emp_Branch");
-        Float salary = rs.getFloat ("salary");
+        Float salary = rs.getFloat ("emp_Salary");
                     System.out.println("\n" + id+"   "+name+"    "+address+"   "+branch+"    "+salary);
                  }
 
