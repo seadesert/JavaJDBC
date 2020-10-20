@@ -55,7 +55,7 @@ public class JDBC_CLI_Main {
                 case 2: JDBC_Insert.CLI_Insert();
                 break;
                 
-                case 3: //JDBC_Display.
+                case 3: JDBC_Display.Table_Display();
                 break;
                 
                 case 4: 

@@ -29,40 +29,19 @@ public class JDBC_Display
     public static void Table_Display() throws SQLException, Exception
     {
         ResultSet rs = Load_ResultSet();
-
+        
         while (rs.next()) {
-          int id = rs.getInt("id");
-          String name = rs.getString("name");
-                    String address = rs.getString("address");
-        String branch = rs.getString("branch");
+          int id = rs.getInt("emp_ID");
+          String name = rs.getString("emp_Name");
+                    String address = rs.getString("emp_Address");
+        String branch = rs.getString("emp_Branch");
         Float salary = rs.getFloat ("salary");
-                    System.out.println(id+"   "+name+"    "+address+"   "+branch+"    "+salary);
+                    System.out.println("\n" + id+"   "+name+"    "+address+"   "+branch+"    "+salary);
                  }
 
     }
     
-     //function to display selected row of table 
-    public static void Table_Display(int emp_id) throws SQLException, Exception
-    {
-       ResultSet rs =  Load_ResultSet();
-       String sqlSelectQuery =
-                           "SELECT * FROM emp WHERE id = ?";
-                
-    }
-    
-    //function to display selected row(s) of table
-    //accpets array as a parameter
-    public static void Table_Display(int[] emp_id) throws SQLException, Exception
-    {
-       ResultSet rs = Load_ResultSet();
-       ArrayList<Integer> resultList = new ArrayList<Integer>();
-while (rs.next()) {
-        result = rs.getInt(1); 
-        resultList.add(result);
-    }
-return resultList;
         
-    }
+
 }
-    
-    //TODO: add as many ResultSet functions as possible
+
