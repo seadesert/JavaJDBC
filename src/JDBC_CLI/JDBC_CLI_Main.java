@@ -14,10 +14,6 @@ import java.sql.Statement;
  */
 public class JDBC_CLI_Main {
 
-    /**
-     * @param args the command line arguments
-     */
-    
     static int max_emp_id = 0;
     
     public static void get_maxempid() throws Exception
