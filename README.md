@@ -1,2 +1,2 @@
-# Java_JDBC
-Java JDBC Employee Managament: Console-based menu driven application for Creating and Dropping employees table and Inserting, Displaying and Updating Records
+Java JDBC Employee Managament</br>
+cli-based menu driven application for Managing Employee Database
